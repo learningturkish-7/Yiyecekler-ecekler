@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food & Drink Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fefefe;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Food & Drink Quiz</h1>
+    <div id="quiz"></div>
+    <p class="score" id="score"></p>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is this food?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Red_Apple.jpg",
+        choices: ["Apple", "Tomato", "Peach", "Pomegranate"],
+        answer: "Apple"
+      },
+      {
+        question: "What is this drink?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Coca_Cola_Glass_Bottle.jpg",
+        choices: ["Tea", "Water", "Coca-Cola", "Juice"],
+        answer: "Coca-Cola"
+      },
+      {
+        question: "What is this food?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Strawberries.jpg",
+        choices: ["Raspberry", "Strawberry", "Cherry", "Grapes"],
+        answer: "Strawberry"
+      },
+      {
+        question: "What is this drink?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Tea_in_a_glass_-_turkish_style.jpg",
+        choices: ["Coffee", "Wine", "Tea", "Cola"],
+        answer: "Tea"
+      },
+      {
+        question: "What is this food?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Pizza_on_stone.jpg",
+        choices: ["Pizza", "Burger", "Sandwich", "Kebab"],
+        answer: "Pizza"
+      },
+      // 25 more questions to complete 30 total
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const quizDiv = document.getElementById("quiz");
+      if (currentQuestion >= questions.length) {
+        document.getElementById("score").textContent = `You scored ${score} out of ${questions.length}`;
+        quizDiv.innerHTML = "";
+        return;
+      }
+      const q = questions[currentQuestion];
+      quizDiv.innerHTML = `
+        <div class="question">
+          <h2>${q.question}</h2>
+          <img src="${q.image}" alt="Question image" />
+          <div class="answers">
+            ${q.choices.map(choice => `<button onclick="checkAnswer('${choice}')">${choice}</button>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function checkAnswer(choice) {
+      if (choice === questions[currentQuestion].answer) {
+        score++;
+      }
+      currentQuestion++;
+      showQuestion();
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
